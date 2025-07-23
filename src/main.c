@@ -15,6 +15,10 @@
 void initialization(t_config *config, char **av)
 {
     config->filename = av[1];
+    config->textures.north = NULL;
+    config->textures.south = NULL;
+    config->textures.west = NULL;
+    config->textures.east = NULL;
 }
 
 int main(int ac, char **av)

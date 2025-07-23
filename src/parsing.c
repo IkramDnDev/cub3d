@@ -24,13 +24,18 @@ void	check_file(char *file)
 		exit(EXIT_FAILURE);
 	}
 }
+
+bool    all_textures_are_set(t_textures *textures)
+{
+    return (textures->north && textures->south &&
+        textures->west && textures->east);
+}
+
 void    assign_textures(char **dir, char *content)
 {
     int i;
 
     i = 0;
-    while (content[i] == ' ')
-        i++;
     if (*dir)
         error_exit("Duplicate textures assignement");
     *dir = ft_strdup(&content[i]);
@@ -48,91 +53,47 @@ void    parse_textures(char *textures_line, t_textures *textures)
         assign_textures(&textures->west, textures_line + 3);
     else if (ft_strncmp(textures_line, "EA ", 3) == 0)
         assign_textures(&textures->east, textures_line + 3);
-    
+    else
+        write(2, "invalid texture\n", 15);
 }
 
-bool    all_textures_are_set(t_textures *textures)
+void    read_cub_file(t_config *config)
 {
-    return (textures->north && textures->south &&
-        textures->west && textures->east);
-}
-
-// void    read_cub_file(t_config *config)
-// {
-//     int     fd;
-//     char    *line;
-//     bool    map_started;
-//     char    *trimmed;
-//     t_list  *map_lines;
-
-//     map_lines = NULL;
-//     map_started = false;
-//     fd = open(config->filename, O_RDONLY);
-//     if (fd == -1)
-//         error_exit("File not found");
-//     line = get_next_line(fd);
-//     while((line = get_next_line(fd)))
-//     {
-//         trimmed = ft_strtrim(line, " \t");
-//         free(line);
-//         if (trimmed[0] == '\0')
-//         {
-//             free(trimmed);
-//             continue;
-//         }
-//         printf("trimmed : %s\n", trimmed);
-//         if (!map_started && is_texture_line(trimmed))
-//             parse_textures(trimmed, &config->textures);
-//         else if (!map_started && is_color_line(trimmed))
-//         {
-//             printf("color\n");
-//             // parse_color(trimmed, &config->colors);
-//         }
-//         else
-//         {
-//             if (!all_textures_are_set(&config->textures))
-//                 error_exit("Textures must be defined before map");
-//             map_started = true;
-//             ft_lstadd_back(&map_lines, ft_lstnew(trimmed));
-//             printf("map\n");
-//         }
-//     }
-//     close(fd);
-//     if (!map_lines)            
-//         error_exit("map not found in .cub file");
-//     // parse_map(map_lines, config);
-//     ft_lstclear(&map_lines, free);
-// }
-
-
-void test(t_config *config)
-{
-	int		fd;
-	char	*line;
+    int     fd;
+    char    *line;
     char    *trimmed;
+    bool    map_started;
 
-	fd = open(config->filename, O_RDONLY);
-	if (fd < 0)
-		error_exit("File not found");
-	line = get_next_line(fd);
-	while (line)
-	{
-        trimmed = ft_strtrim(line, " \t");
+    map_started = false;
+    fd = open(config->filename, O_RDONLY);
+    if (fd < 0)
+        error_exit("File not found");
+    line = get_next_line(fd);
+    while(line)
+    {
+        trimmed = ft_strtrim(line, " \t\n\r");
         free(line);
         if (trimmed[0] == '\0')
         {
             free(trimmed);
+            line = get_next_line(fd);
             continue;
         }
-        printf("%s", line);
-		line = get_next_line(fd);
-	}
-	close(fd);
+        // printf("%s\n", trimmed);
+        if (!map_started && is_texture_line(trimmed))
+            parse_textures(trimmed, &config->textures);
+        free(trimmed);
+        line = get_next_line(fd);
+    }
+    printf("north : %s\n", config->textures.north);
+    printf("south : %s\n", config->textures.south);
+    printf("east : %s\n", config->textures.east);
+    printf("north : %s\n", config->textures.north);
+    close(fd);
 }
 
 void    check_map(t_config *config)
 {
     check_file(config->filename); 
-    // read_cub_file(config);
-    test(config);
+    read_cub_file(config);
 }

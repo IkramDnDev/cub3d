@@ -14,7 +14,7 @@ NAME = cub3d
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+# MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 SRC_PATH = src/
 UTILS_PATH = src/utils/
 LIBFT_PATH = src/libft_utils/

@@ -54,3 +54,51 @@ int is_map_line(char *line)
     }
     return(1);
 }
+
+
+// void    read_cub_file(t_config *config)
+// {
+//     int     fd;
+//     char    *line;
+//     bool    map_started;
+//     char    *trimmed;
+//     t_list  *map_lines;
+
+//     map_lines = NULL;
+//     map_started = false;
+//     fd = open(config->filename, O_RDONLY);
+//     if (fd == -1)
+//         error_exit("File not found");
+//     line = get_next_line(fd);
+//     while((line = get_next_line(fd)))
+//     {
+//         trimmed = ft_strtrim(line, " \t");
+//         free(line);
+//         if (trimmed[0] == '\0')
+//         {
+//             free(trimmed);
+//             continue;
+//         }
+//         printf("trimmed : %s\n", trimmed);
+//         if (!map_started && is_texture_line(trimmed))
+//             parse_textures(trimmed, &config->textures);
+//         else if (!map_started && is_color_line(trimmed))
+//         {
+//             printf("color\n");
+//             // parse_color(trimmed, &config->colors);
+//         }
+//         else
+//         {
+//             if (!all_textures_are_set(&config->textures))
+//                 error_exit("Textures must be defined before map");
+//             map_started = true;
+//             ft_lstadd_back(&map_lines, ft_lstnew(trimmed));
+//             printf("map\n");
+//         }
+//     }
+//     close(fd);
+//     if (!map_lines)            
+//         error_exit("map not found in .cub file");
+//     // parse_map(map_lines, config);
+//     ft_lstclear(&map_lines, free);
+// }

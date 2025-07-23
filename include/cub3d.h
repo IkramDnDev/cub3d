@@ -18,7 +18,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
-# include <mlx.h>
 
 // ───────────── TEXTURE PATHS ─────────────
 typedef struct s_list
