@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <limits.h>
 
 // ───────────── TEXTURE PATHS ─────────────
 typedef struct s_list
@@ -84,18 +85,24 @@ int		is_texture_line(char *line);
 int		is_color_line(char *line);
 int		is_map_line(char *line);
 char	*get_next_line(int fd);
+void	ft_free_split(char **split);
+void	read_cub_file(t_config *config);
+void    parse_textures(char *textures_line, t_textures *textures);
+void	parse_colors(char *line, t_colors *colors);
 
 //libft functions
 
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
 char	*ft_strdup(const char *src);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
 char	*ft_strtrim(char const *s1, char const *set);
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
+char	**ft_split(char const *s, char c);
+int		ft_atoi(const char *str);
 
 #endif

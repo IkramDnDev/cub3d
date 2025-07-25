@@ -22,14 +22,20 @@ LIBFT_PATH = src/libft_utils/
 SRCS = $(SRC_PATH)main.c \
 		$(SRC_PATH)print_errors.c \
 		$(SRC_PATH)parsing.c \
+		$(SRC_PATH)parse_textures.c \
+		$(SRC_PATH)parse_colors.c \
+		$(SRC_PATH)read_cub_file.c \
 		$(UTILS_PATH)get_next_line.c \
 		$(UTILS_PATH)type_line.c \
+		$(UTILS_PATH)free.c \
 		$(LIBFT_PATH)ft_strlen.c \
 		$(LIBFT_PATH)ft_strdup.c \
 		$(LIBFT_PATH)ft_strtrim.c \
 		$(LIBFT_PATH)ft_strncmp.c \
 		$(LIBFT_PATH)ft_strchr.c \
 		$(LIBFT_PATH)ft_strjoin.c \
+		$(LIBFT_PATH)ft_atoi.c \
+		$(LIBFT_PATH)ft_split.c \
 		$(LIBFT_PATH)ft_lstnew.c \
 		$(LIBFT_PATH)ft_lstadd_back.c \
 		$(LIBFT_PATH)ft_lstclear.c \
